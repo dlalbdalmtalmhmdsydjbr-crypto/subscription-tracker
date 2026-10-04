@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- إعطاء صلاحية الوصول للمستخدمين مباشرة داخل ملف XML -->
+        <record id="access_service_subscription_user" model="ir.model.access">
+            <field name="name">access_service_subscription_user</field>
+            <field name="model_id" ref="model_service_subscription"/>
+            <field name="group_id" ref="base.group_user"/>
+            <field name="perm_read">1</field>
+            <field name="perm_write">1</field>
+            <field name="perm_create">1</field>
+            <field name="perm_unlink">1</field>
+        </record>
+
+        <!-- واجهة النموذج (Form View) -->
+        <record id="view_service_subscription_form" model="ir.ui.view">
+            <field name="name">service.subscription.form</field>
+            <field name="model">service.subscription</field>
+            <field name="arch" type="xml">
+                <form string="اشتراك">
+                    <sheet>
+                        <group>
+                            <field name="name"/>
+                            <field name="provider"/>
+                            <field name="cost"/>
+                            <field name="billing_cycle"/>
+                            <field name="next_renewal_date"/>
+                            <field name="state"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- واجهة الجدول (List View) -->
+        <record id="view_service_subscription_tree" model="ir.ui.view">
+            <field name="name">service.subscription.list</field>
+            <field name="model">service.subscription</field>
+            <field name="arch" type="xml">
+                <list string="الاشتراكات">
+                    <field name="name"/>
+                    <field name="provider"/>
+                    <field name="cost"/>
+                    <field name="billing_cycle"/>
+                    <field name="next_renewal_date"/>
+                    <field name="state"/>
+                </list>
+            </field>
+        </record>
+
+        <!-- الأكشن والقوائم -->
+        <record id="action_service_subscription" model="ir.actions.act_window">
+            <field name="name">الاشتراكات</field>
+            <field name="res_model">service.subscription</field>
+            <field name="view_mode">list,form</field>
+        </record>
+
+        <menuitem id="menu_subscription_root" name="إدارة الاشتراكات"/>
+        <menuitem id="menu_subscriptions_list" name="الاشتراكات" parent="menu_subscription_root" action="action_service_subscription"/>
+    </data>
+</odoo>
